@@ -19,10 +19,8 @@ Hooks and Promises.
 
 # Checkout and Build Instructions
 
-First check out the AdminApp and the security code into separate directories.  
-In the security directory, modify the pom.xml.  Change the react.app.path to
-point to the place where the React project is.  Also, some users have been
-automatically been loaded into the database at runtime,  The users are in the
+In order to login, some users have beenautomatically been loaded into the database 
+at runtime,  The users are in the
 src/main/resources/data.sql table.  The password is encrypted, but is actually
 "user-password". To build everything, type 
 "mvn install" in the security directory.  The maven 
