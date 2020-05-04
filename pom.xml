@@ -184,8 +184,8 @@
                         </configuration>
                     </execution>
                      <execution>
-                        <id>npm install router-dom</id>
-                        <phase>install router-dom</phase>
+                        <id>npm install react-router-dom</id>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -195,6 +195,7 @@
                             <arguments>
                                 <argument>install</argument>
                                 <argument>react-router-dom</argument>
+                                <argument>--save</argument>                                
                             </arguments>
                         </configuration>
                     </execution>                 
