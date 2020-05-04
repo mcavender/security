@@ -154,6 +154,51 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>npm install material-ui/core</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+    
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                                <argument>@material-ui/core</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>                     
+                    <execution>
+                        <id>npm install material-ui/styles</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+    
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                                <argument>@material-ui/styles</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                     <execution>
+                        <id>npm install router-dom</id>
+                        <phase>install router-dom</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+    
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                                <argument>react-router-dom</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>                 
+                    <execution>
                         <id>npm run build (compile)</id>
                         <phase>compile</phase>
                         <goals>
