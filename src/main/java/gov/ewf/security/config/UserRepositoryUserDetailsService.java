@@ -4,8 +4,8 @@ object that Spring Boot uses to handle security.
  */
 package gov.ewf.security.config;
 
-import gov.ewf.security.dao.UserRepository;
-import gov.ewf.security.model.User;
+import gov.ewf.security.repository.UserRepository;
+import gov.ewf.security.entity.User;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
