@@ -115,6 +115,21 @@ input.submit {
   background-color: rgba(16,89,255, 1);  
 }
 
+button.submit {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1em;
+  text-align: center;
+  color: rgba(255,255,255, 1);
+  padding: 8px 0px;
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 23px;
+  background-color: rgba(16,89,255, 1);
+}
+
   /*Form positioning and animation */
 
   form#registerform {

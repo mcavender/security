@@ -18,8 +18,9 @@ public class User implements Serializable {
 
   // An automated one up number.  Think of a database sequence
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  
+  private String id;
   
   private String username;
   private String password;
@@ -32,11 +33,11 @@ public class User implements Serializable {
   String role = "ROLE_USER";
   String email;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
