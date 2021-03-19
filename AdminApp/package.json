@@ -1,10 +1,7 @@
 {
-  "name": "AdminApp",
+  "name": "adminapp",
   "version": "0.1.0",
   "private": true,
-  "alias": {
-    "react": "path.resolve('./node_modules/react')"
-  },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.9.1",
@@ -14,12 +11,16 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "bootstrap": "^4.6.0",
+    "bootstrap-css-only": "^4.4.1",
     "material-table": "^1.69.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-popup": "^0.10.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.4",
     "react-spring": "^8.0.27",
+    "reactjs-popup": "^2.0.4",
     "typescript": "^3.8.3"
   },
   "scripts": {
@@ -28,6 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": "react-app"
   },

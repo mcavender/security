@@ -3,23 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
-    
-    <!--
-    
-    This is the main build module for the Spring Boot and React App.  The App allows you to add, modify and
-    delete users in a H2 database.  The spring app is developed with and IDE, such as Netbeans and
-    the React app is developed with Visual Studio code at another location on the disk.  When you run mvn
-    build, this application will compile this code, as well as the React code, move the compiled React
-    code over into the Spring Boot application, and produce an uber jar.  The entire app can then be
-    run by typing java -jar security-0.0.4-SNAPSHOT.jar in the target directory of this project.
-    
-    NOTE:  This will not compile with the version of maven the comes with Netbeans 8.2.  I suggest
-    you get one of the newer versions such as Netbeans 11.x.
-    -->  
-    
-    
-    
-    
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ewf</groupId>
@@ -33,8 +16,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.9.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.4.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
@@ -42,57 +25,35 @@
             UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>
             UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <react.app.path>./AdminApp</react.app.path>
     </properties>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-            <version>3.0.4.RELEASE</version>
-        </dependency>
-        
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
             <version>2.4.3</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>htmlunit-driver</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -108,24 +69,6 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.13</version>
-        </dependency>
-        
-        <!--
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <!-- tag::springSecurity[] -->
@@ -134,160 +77,5 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <!-- end::springSecurity[] -->
-		
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope> 
-        </dependency>
-
-    
-      <dependency>
-        <groupId>win.doyto</groupId>
-        <artifactId>doyto-query-web</artifactId>
-        <version>0.2.0-RELEASE</version>
-      </dependency>
-    
-      <dependency>
-        <groupId>org.apache.servicemix.bundles</groupId>
-        <artifactId>org.apache.servicemix.bundles.spring-webmvc</artifactId>
-        <version>5.0.8.RELEASE_1</version>
-      </dependency>
-    
-      <dependency>
-        <groupId>org.eclipse.dirigible</groupId>
-        <artifactId>dirigible-commons-config</artifactId>
-        <version>3.2.9</version>
-      </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <configuration>
-                    <workingDirectory>${react.app.path}/</workingDirectory>
-                    <installDirectory>target</installDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>npm install (initialize)</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-    
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm install material-ui/core</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-    
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>@material-ui/core</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>                     
-                    <execution>
-                        <id>npm install material-ui/styles</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-    
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>@material-ui/styles</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-
-                     <execution>
-                        <id>npm install react-router-dom</id>
-                        <phase>initialize</phase>
-
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-    
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-                                <argument>react-router-dom</argument>
-                                <argument>--save</argument>                                
-                            </arguments>
-                        </configuration>
-                    </execution>                 
-                    <execution>
-                        <id>npm run build (compile)</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>build</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <configuration>
-                            <target>
-                                <copy todir="${project.build.directory}/classes/public">
-                                    <fileset dir="${react.app.path}/build"/>
-                                </copy>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            
-        </plugins>
-    </build>
-    <pluginRepositories>    
-        <pluginRepository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </pluginRepository>
-    </pluginRepositories>
-    <repositories>    
-        <repository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-    </repositories>
 </project>

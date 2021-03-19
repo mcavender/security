@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const TEAM_USERS_URL = 'http://localhost:8080/team_users';
+const TEAM_USERS_URL = 'team_users';
 
 
 class TeamUsersService {

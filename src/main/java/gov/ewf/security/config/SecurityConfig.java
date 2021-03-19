@@ -32,22 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   // index.  These files are actually in the resources/template directory.
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-      
-      
-        http.csrf().disable().authorizeRequests()
-            .antMatchers("/css/**").permitAll()
-            
-            .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/index.html")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and().csrf().disable();
-      
+      http
+          .authorizeRequests()
+              .anyRequest().authenticated()
+              .and().cors().and()
+          .httpBasic();
   }
 
   // Use the BCryptPassword encodder on passwords

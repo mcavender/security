@@ -25,9 +25,10 @@ public class UserController {
     @Autowired
     private UsersService usersSerivce;
 
+    
     @Autowired
     PasswordEncoder passwordEncoder;
-    
+
     // Returns a List of users
     @RequestMapping("/users")
     public List<User> getAllUsers() {
@@ -36,24 +37,24 @@ public class UserController {
 
     // Returns a single user requested by id
     @RequestMapping("/users/{id}")
-    public User getTeamUser(@PathVariable String id) {
-        return usersSerivce.getUser(id);
+    public User getUsers(@PathVariable String id) {
+        return usersSerivce.getUsers(id);
     }
     
     // Adds a user with a POST command.  The user is in JSON in the body 
     // of the request.
     @RequestMapping(method= RequestMethod.POST, value="/users")
-    public void addUsers(@RequestBody User users) { usersSerivce.addUser(users); }
+    public void addUsers(@RequestBody User users) { usersSerivce.addUsers(users); }
 
     // Updates a user given by the id.  The actual user is in the body of the
     // request.  It also returns the user back to the requestor.
     @RequestMapping(method= RequestMethod.PUT, value="/users/{id}")
-    public void updateUser(@RequestBody User user, @PathVariable String id) {        
-        usersSerivce.updateUser(id, user);
+    public void updateUsers(@RequestBody User user, @PathVariable String id) {        
+        usersSerivce.updateUsers(id, user);
     }    
     
     // Delete the user given by its id.  It returns the deleted user.
     @RequestMapping(method= RequestMethod.DELETE, value="/users/{id}")
-    public void deleteUser(@PathVariable String id) { usersSerivce.deleteUser(id); }
+    public void deleteUsers(@PathVariable String id) { usersSerivce.deleteUsers(id); }
 
 }

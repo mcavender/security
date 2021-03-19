@@ -20,12 +20,12 @@ public class UsersService {
         return users;
     }
 
-    public User getUser(String id) { return userRepository.findById(id).orElse(null); }
+    public User getUsers(String id) { return userRepository.findById(id).orElse(null); }
 
-    public void addUser(User users) { userRepository.save(users); }
+    public void addUsers(User users) { userRepository.save(users); }
 
-    public void updateUser(String id, User users) { userRepository.save(users); }
+    public void updateUsers(String id, User users) { userRepository.save(users); }
 
-    public void deleteUser(String id) { userRepository.deleteById(id); }
+    public void deleteUsers(String id) { userRepository.deleteById(id); }
     
 }

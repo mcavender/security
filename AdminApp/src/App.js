@@ -10,14 +10,14 @@ import Login from './components/login';
 
 //Components
 import TeamUsersComponent from './components/TeamUsersComponent';
-import CustomTable from './components/custom-table';
+import CustomTable from './components/UsersComponent';
 
 export default class App extends Component {
   render() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Login} />
           <Route exact path="/home" component={Home}/>
           <Route exact path="/TeamUsers" component={TeamUsersComponent} />
           <Route exact path="/users" component={CustomTable} />

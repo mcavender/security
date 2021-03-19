@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+
 export default class Login extends React.Component {
     
     handleSubmit = e => {
@@ -13,21 +14,20 @@ export default class Login extends React.Component {
 
         console.log(data);
         
-      axios.post('http://localhost:8080/users', data)
+      axios.post('login', data)
         .then(res => {
-          console.log(res)
+          localStorage.setItem('token', res.data.token);
         })
         .catch(err => {
           console.log(err)
         })
     };
 
-    render() {
+  render() {
         return (
           <div className="login-register-wrapper">
             <div className="nav-buttons">
-              <button>Login
-              </button>
+              <h2>Login</h2>
             </div>
             <div className="form-group">
               <form id="loginform" onSubmit={ this.handleSubmit }>

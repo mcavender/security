@@ -1,7 +1,9 @@
+import Axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+Axios.defaults.baseURL = 'http://localhost:3000/';
 
 ReactDOM.render(
   <React.StrictMode>

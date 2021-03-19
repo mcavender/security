@@ -1,8 +1,8 @@
 import React from 'react';
 
-import TeamUsersService from '../services/TeamUsersService';
+import UsersService from '../services/UsersService';
 
-class sersComponent extends React.Component {
+class UsersComponent extends React.Component {
 
 
     constructor(props) {
@@ -13,7 +13,7 @@ class sersComponent extends React.Component {
     }
 
     componentDidMount() {
-        TeamUsersService.getTeamUsers().then((response) => {
+        UsersService.getUsers().then((response) => {
             this.setState({users: response.data})
         });
     }
@@ -26,11 +26,16 @@ class sersComponent extends React.Component {
                     <thead>
                         <tr>
                             <td>User ID</td>
+                            <td>City</td>
                             <td>Email</td>
                             <td>Name</td>
-                            <td>Rank</td>
                             <td>Status</td>
-                            <td>Team</td>
+                            <td>Phone Number</td>
+                            <td>Role</td>
+                            <td>State</td>
+                            <td>Street</td>
+                            <td>Username</td>
+                            <td>Zip</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,12 +43,16 @@ class sersComponent extends React.Component {
                             this.state.users.map(
                                 user =>
                                 <tr key = {user.id}>
-                                    <td>{user.userid}</td>
-                                    <td>{user.email_address}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.rank}</td>
-                                    <td>{user.status}</td>
-                                    <td>{user.team}</td>
+                                    <td>{user.id}</td>
+                                    <td>{user.city}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.fullname}</td>
+                                    <td>{user.phonenumber}</td>
+                                    <td>{user.role}</td>
+                                    <td>{user.state}</td>
+                                    <td>{user.street}</td>
+                                    <td>{user.username}</td>
+                                    <td>{user.zip}</td>
                                 </tr>
                             )
                         }
