@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" href="../src/photos/favicon-16x16.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
-      name="description"
+      name="Security App"
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -26,11 +26,17 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Security App</title>
   </head>
+  <div class="classification-banner">
+    <span style="float: left;margin-left: 5px;" > INFOCON: 3</span>
+    <span style="text-align: cent" >UNCLASSIFIED</span>
+    <span style="float: right;margin-right: 5px;" >FPCON: Bravo </span>
+   </div>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" data-url="http://localhost:8080" class="container"></div>
+    <div id="root" data-url="http://localhost:8080" class="container"></div>    
+    <div id="portal" class="container"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -1,4 +1,7 @@
+import { Container } from '@material-ui/core';
 import React from 'react';
+import '../App.css';
+
 
 import TeamUsersService from '../services/TeamUsersService';
 
@@ -20,9 +23,9 @@ class TeamUsersComponent extends React.Component {
 
     render() {
         return (
-            <div>
+            <Container maxWidth="fixed" className="box">
                 <h1 className="text-center"> List</h1>
-                <table className="table table-striped">
+                <table className="table table-striped mt-5 text-center">
                     <thead>
                         <tr>
                             <td>User ID</td>
@@ -49,7 +52,7 @@ class TeamUsersComponent extends React.Component {
                         }
                     </tbody>
                 </table>
-            </div>
+            </Container>
         )
     }
 }

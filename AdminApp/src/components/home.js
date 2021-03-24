@@ -1,5 +1,5 @@
-import Axios from 'axios';
 import React from 'react';
+import UsersService from '../services/UsersService';
 
 import Nav from './nav'
 
@@ -7,17 +7,11 @@ import Nav from './nav'
 class Home extends React.Component {
 
     componentDidMount() {
-        const config = {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        };
 
-        Axios.get('users', config).then(
+        UsersService.getUsers('users').then(
             res => {
-                this.setState({
-                    user: res.data
-                })
+                this.setState({users: res.data})
+
             },
             err => {
                 console.log(err);
@@ -26,7 +20,7 @@ class Home extends React.Component {
     }
 
     render() {
-        if (this.state.user) {
+        if (this.state.users) {
             return (
                 <h2> {this.username} </h2>
             )
