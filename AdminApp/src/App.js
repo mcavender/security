@@ -4,9 +4,9 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 //Pages
-import Home from './components/home';
-import NotFound from './components/NotFound';
-import Login from './components/login';
+import Home from './components/pages/home';
+import NotFound from './components/pages/NotFound';
+import Login from './components/pages/login';
 
 //Components
 import TeamUsersComponent from './components/TeamUsersComponent';
