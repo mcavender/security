@@ -3,6 +3,7 @@ import UsersService from '../../services/UsersService';
 
 import { Container, Grid, Button } from '@material-ui/core';
 import Sidebar from '../sidebar/SideBar';
+import HomeButton from '../HomeButton';
 
 class Home extends React.Component {
 
@@ -36,7 +37,7 @@ class Home extends React.Component {
                 <div className="home-page">
                     <Grid container spacing={5} justify="center">
                         <Grid item xs={10} sm={3}>
-                            <AppButton/>
+                            <HomeButton/>
                         </Grid>
                         <Grid item xs={10} sm={3}>
                             <AppButton/>
@@ -61,6 +62,7 @@ class Home extends React.Component {
                         </Grid>
                     </Grid>
                 </div>
+
             </Container>
         )        
     }

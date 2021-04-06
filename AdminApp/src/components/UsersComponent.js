@@ -2,6 +2,9 @@ import React from 'react';
 
 import UsersService from '../services/UsersService';
 
+
+
+
 class UsersComponent extends React.Component {
 
 
@@ -22,7 +25,7 @@ class UsersComponent extends React.Component {
         return (
             <div>
                 <h1 className="text-center"> List</h1>
-                <table className="table table-striped">
+                <table className="table mt-5 text-center">
                     <thead>
                         <tr>
                             <td>User ID</td>

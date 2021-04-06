@@ -42,6 +42,15 @@ public class User implements Serializable {
     String state, String zip, String phonenumber, String role, String email) {
       super();
       this.username = username;
+      this.password = password;
+      this.fullname = fullname;
+      this.street = street;
+      this.city = city;
+      this.state = state;
+      this.zip = zip;
+      this.phonenumber = phonenumber;
+      this.role = role;
+      this.email = email;
       
   }
 
