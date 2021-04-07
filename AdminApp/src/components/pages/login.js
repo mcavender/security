@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UsersService from '../../services/UsersService';
-import Popup from './Popup';
+import Popup from './TermsPopup';
 
 export default class Login extends React.Component {
 

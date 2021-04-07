@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-//import NewUsersForm from "./NewUserForm";
-import PageHeader from "../../components/pages/PageHeader";
+import NewUsersForm from "./NewUserForm";
+import PageHeader from "./PageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper, makeStyles, TableBody, TableRow, Toolbar, InputAdornment, TableCell } from '@material-ui/core';
-import useTable from "../../components/useTable";
-import Controls from "../../components/controls/Controls";
+import useTable from "../useTable";
+import Controls from "../controls/Controls";
+import Popup from "../controls/Popup";
 import { Search } from "@material-ui/icons";
+import AddIcon from '@material-ui/icons/Add';
 
 import UsersService from '../../services/UsersService';
 
@@ -16,6 +18,10 @@ const useStyles = makeStyles(theme => ({
     },
     searchInput: {
         width: '75%'
+    },
+    newButton: {
+        position: 'absolute',
+        right: '10px'
     }
 }))
 
@@ -26,16 +32,17 @@ const headCells = [
     { id: 'fullname', label: 'Name', width: 130 },
     { id: 'phonenumber', label: 'Phone Number', width: 150, disableSorting: true },
     { id: 'role', label: 'Role', width: 130 },
-    { id: 'username', label: 'Username', width: 130 },
+    { id: 'username', label: 'Username', width: 130 }, ,
+    { id: 'actions', label: 'Actions'}
 ]
 
-export default function TestTable3Page() {
+export default function UsersComponent() {
 
     const classes = useStyles();
+    const [recordForEdit, setRecordForEdit] = useState(null)
     const [records, setRecords] = useState([])
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
-    
-    console.log(records);
+    const [openPopup, setOpenPopup] = useState(false)
 
     useEffect(() => {
         UsersService.getUsers()
@@ -43,9 +50,6 @@ export default function TestTable3Page() {
           setRecords(response.data);
         })
     }, []);
-    
-    console.log(records);
-
 
     const {
         TblContainer,
@@ -61,9 +65,20 @@ export default function TestTable3Page() {
                 if (target.value === "")
                     return items;
                 else
-                    return items.filter(x => x.fullName.toLowerCase().includes(target.value))
+                    return items.filter(x => x.fullname.toLowerCase().includes(target.value))
             }
         })
+    }
+    
+    const addOrEdit = (user, resetForm) => {
+        if (user.id === 0)
+            UsersService.addUsers(user)
+        else
+            UsersService.updateUsers(user)
+        resetForm()
+        setRecordForEdit(null)
+        setOpenPopup(false)
+        setRecords(UsersService.getUsers())
     }
 
     return (
@@ -74,6 +89,25 @@ export default function TestTable3Page() {
                 icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
+                <Toolbar>
+                    <Controls.Input
+                        label="Search Users"
+                        className={classes.searchInput}
+                        InputProps={{
+                            startAdornment: (<InputAdornment position="start">
+                                <Search />
+                            </InputAdornment>)
+                        }}
+                        onChange={handleSearch}
+                    />
+                    <Controls.Button
+                        text="Add New"
+                        variant="outlined"
+                        startIcon={<AddIcon />}
+                        className={classes.newButton}
+                        onClick={() => { setOpenPopup(true); setRecordForEdit(null); }}
+                    />
+                </Toolbar>
                 <TblContainer>
                     <TblHead />
                     <TableBody>
@@ -86,13 +120,25 @@ export default function TestTable3Page() {
                                     <TableCell>{item.phonenumber}</TableCell>
                                     <TableCell>{item.role}</TableCell>
                                     <TableCell>{item.username}</TableCell>
+                                    <TableCell>
+                                        
+                                    </TableCell>
                                 </TableRow>)
                             )
                         }
                     </TableBody>
                 </TblContainer>
                 <TblPagination />
-            </Paper>
+            </Paper>            
+            <Popup
+                title="User Form"
+                openPopup={openPopup}
+                setOpenPopup={setOpenPopup}
+            >
+                <NewUsersForm
+                    recordForEdit={recordForEdit}
+                    addOrEdit={addOrEdit} />
+            </Popup>
         </>
     )
 }

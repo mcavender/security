@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useState} from 'react';
 import { Redirect } from "react-router-dom";
 
 import UsersService from '../services/UsersService';
-import Popup from './pages/Popup';
+import Popup from './pages/TermsPopup';
 
 const Logintest = (props: { setName: (name: string) => void }) => {
     const [username, setUsername] = useState('');

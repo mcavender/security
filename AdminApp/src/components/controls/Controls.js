@@ -1,18 +1,18 @@
-import React from 'react'
-import { TextField } from '@material-ui/core';
+import Input from "./Input";
+import RadioGroup from "./RadioGroup";
+import Select from "./Select";
+import Checkbox from "./Checkbox";
+import DatePicker from "./DataPicker";
+import Button from "./Button";
 
-export default function Input(props) {
+const Controls = {
+    Input,
+    RadioGroup,
+    Select,
+    Checkbox,
+    DatePicker,
+    Button
 
-    const { name, label, value,error=null, onChange, ...other } = props;
-    return (
-        <TextField
-            variant="outlined"
-            label={label}
-            name={name}
-            value={value}
-            onChange={onChange}
-            {...other}
-            {...(error && {error:true,helperText:error})}
-        />
-    )
 }
+
+export default Controls;
