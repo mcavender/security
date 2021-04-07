@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/useForm';
@@ -13,7 +13,9 @@ const initialFValues = {
     username: '',
 }
 
-export default function UserForm() {
+export default function UserForm(props) {
+
+    const { addOrEdit, recordForEdit } = props
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -48,6 +50,13 @@ export default function UserForm() {
         }
     }
 
+    useEffect(() => {
+        if (recordForEdit != null)
+            setValues({
+                ...recordForEdit
+            })
+    }, [recordForEdit])
+
     return (
         <Form onSubmit={handleSubmit}>
             <Grid container>
@@ -55,9 +64,9 @@ export default function UserForm() {
                     <Controls.Input
                         name="fullName"
                         label="Full Name"
-                        value={values.fullName}
+                        value={values.fullname}
                         onChange={handleInputChange}
-                        error={errors.fullName}
+                        error={errors.fullname}
                     />
                     <Controls.Input
                         label="Email"

@@ -8,6 +8,8 @@ import Controls from "../controls/Controls";
 import Popup from "../controls/Popup";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CloseIcon from '@material-ui/icons/Close';
 
 import UsersService from '../../services/UsersService';
 
@@ -81,6 +83,11 @@ export default function UsersComponent() {
         setRecords(UsersService.getUsers())
     }
 
+    const openInPopup = item => {
+        setRecordForEdit(item)
+        setOpenPopup(true)
+    }
+    
     return (
         <>
             <PageHeader
@@ -121,7 +128,15 @@ export default function UsersComponent() {
                                     <TableCell>{item.role}</TableCell>
                                     <TableCell>{item.username}</TableCell>
                                     <TableCell>
-                                        
+                                        <Controls.ActionButton
+                                            color="primary"
+                                            onClick={() => { openInPopup(item) }}>
+                                            <EditOutlinedIcon fontSize="small" />
+                                        </Controls.ActionButton>
+                                        <Controls.ActionButton
+                                            color="secondary">
+                                            <CloseIcon fontSize="small" />
+                                        </Controls.ActionButton>
                                     </TableCell>
                                 </TableRow>)
                             )
