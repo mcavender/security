@@ -4,13 +4,13 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 //Pages
-import Home from './components/pages/home';
+import Home from './components/pages/home/home';
 import NotFound from './components/pages/NotFound';
-import Login from './components/pages/login';
-import Users from './components/pages/UsersComponent';
+import Login from './components/pages/home/login';
+import Users from './components/pages/users/UsersComponent';
 
 //Components
-import TeamUsersComponent from './components/TeamUsersComponent';
+import TeamUsersComponent from './components/pages/users/TeamUsersComponent';
 
 export default class App extends Component {
   render() {
