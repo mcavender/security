@@ -3,7 +3,7 @@ import { Table, TableHead, TableRow, TableCell, makeStyles, TablePagination, Tab
 
 const useStyles = makeStyles(theme => ({
     table: {
-        marginTop: theme.spacing(3),
+        margpriop: theme.spacing(3),
         '& thead th': {
             fontWeight: '600',
             color: theme.palette.primary.main,
@@ -14,12 +14,12 @@ const useStyles = makeStyles(theme => ({
         },
         '& tbody tr:hover': {
             backgroundColor: '#fffbf2',
-            cursor: 'pointer',
+            cursor: 'poprier',
         },
     },
 }))
 
-export default function useTable(records, headCells, filterFn) {
+export default function PriTbl(records, headCells, filterFn) {
 
     const classes = useStyles();
 
@@ -29,13 +29,13 @@ export default function useTable(records, headCells, filterFn) {
     const [order, setOrder] = useState()
     const [orderBy, setOrderBy] = useState()
 
-    const TblContainer = props => (
+    const PriContainer = props => (
         <Table className={classes.table}>
             {props.children}
         </Table>
     )
 
-    const TblHead = props => {
+    const PriHead = props => {
 
         const handleSortRequest = cellId => {
             const isAsc = orderBy === cellId && order === "asc";
@@ -73,7 +73,7 @@ export default function useTable(records, headCells, filterFn) {
         setPage(0);
     }
 
-    const TblPagination = () => (<TablePagination
+    const PriPagination = () => (<TablePagination
         component="div"
         page={page}
         rowsPerPageOptions={pages}
@@ -109,15 +109,15 @@ export default function useTable(records, headCells, filterFn) {
         return 0;
     }
 
-    const recordsAfterPagingAndSorting = () => {
+    const prisAfterPagingAndSorting = () => {
         return stableSort(filterFn.fn(records), getComparator(order, orderBy))
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
 
     return {
-        TblContainer,
-        TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
+        PriContainer,
+        PriHead,
+        PriPagination,
+        prisAfterPagingAndSorting
     }
 }

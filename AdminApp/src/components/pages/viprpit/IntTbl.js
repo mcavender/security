@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function useTable(records, headCells, filterFn) {
+export default function IntTbl(records, headCells, filterFn) {
 
     const classes = useStyles();
 
@@ -29,13 +29,13 @@ export default function useTable(records, headCells, filterFn) {
     const [order, setOrder] = useState()
     const [orderBy, setOrderBy] = useState()
 
-    const TblContainer = props => (
+    const IntContainer = props => (
         <Table className={classes.table}>
             {props.children}
         </Table>
     )
 
-    const TblHead = props => {
+    const IntHead = props => {
 
         const handleSortRequest = cellId => {
             const isAsc = orderBy === cellId && order === "asc";
@@ -73,7 +73,7 @@ export default function useTable(records, headCells, filterFn) {
         setPage(0);
     }
 
-    const TblPagination = () => (<TablePagination
+    const IntPagination = () => (<TablePagination
         component="div"
         page={page}
         rowsPerPageOptions={pages}
@@ -109,15 +109,15 @@ export default function useTable(records, headCells, filterFn) {
         return 0;
     }
 
-    const recordsAfterPagingAndSorting = () => {
+    const intsAfterPagingAndSorting = () => {
         return stableSort(filterFn.fn(records), getComparator(order, orderBy))
             .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
 
     return {
-        TblContainer,
-        TblHead,
-        TblPagination,
-        recordsAfterPagingAndSorting
+        IntContainer,
+        IntHead,
+        IntPagination,
+        intsAfterPagingAndSorting
     }
 }
