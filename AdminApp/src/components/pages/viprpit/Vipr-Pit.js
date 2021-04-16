@@ -5,13 +5,12 @@ import {
 } from '@material-ui/core';
 import useTable from "../../controls/useTable";
 import IntTbl from "./IntTbl";
-import PriTbl from "./PriTbl";
-import RfTbl from "./RfTbl";
 import Controls from "../../controls/Controls";
 import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
-import InterceptsService from '../../../services/InterceptsService';
+import ViprTablesViewService from '../../../services/ViprTablesViewService';
 
 const useStyles = makeStyles(theme => ({
     elnotTbl: {
@@ -35,41 +34,39 @@ const useStyles = makeStyles(theme => ({
 
 
 const elnotHead = [
-    { id: 'elnot', label: 'Elnot', width: 50 }
+    { id: 'elnot', label: 'Elnot', width: 50 },
+    { label: 'Validation Status', width: 40 },
+    { label: 'Validate', width: 40, disableSorting: true },
 ]
 
 const intHead = [
     { id: 'elnot', label: 'Elnot', width: 50 },
-    { id: 'pd', label: 'PD', width: 50 },
+    { id: 'op_mode_id', label: 'Mode', width: 50 },
+    { id: 'rf_mode', label: 'RF Min', width: 50 },
+    { id: 'rf_mode', label: 'RF Max', width: 50 },
+    { id: 'mode_type', label: 'Mode Type', width: 50 },
+    { id: 'pri_seq', label: 'Pri Min', width: 50 },
+    { id: 'pri_seq', label: 'Pri Max', width: 50 },
+    { id: 'pd_mode', label: 'PD Min', width: 50 },
+    { id: 'pd_mode', label: 'PD Max', width: 50 },
+    { id: 'sp_mode', label: 'SP Min', width: 50 },
+    { id: 'sp_mode', label: 'SP Max', width: 50 },
     { id: 'scan_type', label: 'Scan Type', width: 50 },
-    { id: 'ir', label: 'IR', width: 50 },
-    { id: 'scan_period', label: 'Scan Period', width: 50 },
-    { id: 'mod_type', label: 'Mod Type', width: 50 }
-]
-
-const priHead = [
-    { id: 'pri1', label: 'PRI1', width: 50 },
-    { id: 'pri2', label: 'PRI2', width: 50 },
-    { id: 'pri3', label: 'PRI3', width: 50 }
-]
-
-const rfHead = [
-    { id: 'rf1', label: 'RF1', width: 50 },
-    { id: 'rf2', label: 'RF2', width: 50 },
-    { id: 'rf3', label: 'RF3', width: 50 }
 ]
 
 
 export default function ViprPitComponent() {
 
     const classes = useStyles();
-    const [records, setRecords] = useState([])
+    const [viprView, setViprView] = useState([])
+    const [recordForEdit, setRecordForEdit] = useState(null)
+    const [openPopup, setOpenPopup] = useState(false)
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
 
     useEffect(() => {
-        InterceptsService.getIntercepts()
+        ViprTablesViewService.getViprTablesView()
         .then(response => {
-            setRecords(response.data);
+            setViprView(response.data);
         })
     }, []);
 
@@ -78,28 +75,14 @@ export default function ViprPitComponent() {
         TblHead,
         TblPagination,
         recordsAfterPagingAndSorting
-    } = useTable(records, elnotHead, filterFn);
+    } = useTable(viprView, elnotHead, filterFn);
 
     const {
         IntContainer,
         IntHead,
         IntPagination,
         intsAfterPagingAndSorting
-    } = IntTbl(records, intHead, filterFn);
-
-    const {
-        PriContainer,
-        PriHead,
-        PriPagination,
-        prisAfterPagingAndSorting
-    } = PriTbl(records, priHead, filterFn);
-
-    const {
-        RfContainer,
-        RfHead,
-        RfPagination,
-        rfsAfterPagingAndSorting
-    } = RfTbl(records, rfHead, filterFn);
+    } = IntTbl(viprView, intHead, filterFn);
     
     const handleSearch = e => {
         let target = e.target;
@@ -112,12 +95,17 @@ export default function ViprPitComponent() {
             }
         })
     }
+
+    const openInPopup = item => {
+        setRecordForEdit(item)
+        setOpenPopup(true)
+    }
     
     return (
         <>
             <Grid container spacing={3} direction="column">
                 <Grid container xs={12} spacing={1}>
-                    <Grid item xs={3}>
+                    <Grid item xs={4}>
                         <Paper className={classes.paper}>
                             <Toolbar>
                             <Controls.Input
@@ -141,9 +129,17 @@ export default function ViprPitComponent() {
                                 <TblHead />
                                 <TableBody>
                                     {
-                                        recordsAfterPagingAndSorting(records).map(item =>
+                                        recordsAfterPagingAndSorting(viprView).map(item =>
                                             (<TableRow key={item.elnot}>
                                                 <TableCell>{item.elnot}</TableCell>
+                                                <TableCell></TableCell>
+                                                <TableCell>
+                                                    <Controls.ActionButton
+                                                        color="primary"
+                                                        onClick={() => { openInPopup(item) }}>
+                                                        <EditOutlinedIcon fontSize="small" />
+                                                    </Controls.ActionButton>
+                                                </TableCell>
                                             </TableRow>)
                                         )
                                     }
@@ -152,21 +148,27 @@ export default function ViprPitComponent() {
                             <TblPagination />
                         </Paper>
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item xs={8}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <IntContainer>
                                     <IntHead />
                                     <TableBody>
                                         {
-                                            intsAfterPagingAndSorting(records).map(item =>
+                                            intsAfterPagingAndSorting(viprView).map(item =>
                                                 (<TableRow key={item.elnot}>
                                                     <TableCell>{item.elnot}</TableCell>
-                                                    <TableCell>{item.pd}</TableCell>
+                                                    <TableCell>{item.op_mode_id}</TableCell>
+                                                    <TableCell>{item.rf_mode}</TableCell>
+                                                    <TableCell>{item.rf_mode}</TableCell>
+                                                    <TableCell>{item.mode_type}</TableCell>
+                                                    <TableCell>{item.pri_seq}</TableCell>
+                                                    <TableCell>{item.pri_seq}</TableCell>
+                                                    <TableCell>{item.pd_mode}</TableCell>
+                                                    <TableCell>{item.pd_mode}</TableCell>
+                                                    <TableCell>{item.sp_mode}</TableCell>
+                                                    <TableCell>{item.sp_mode}</TableCell>
                                                     <TableCell>{item.scan_type}</TableCell>
-                                                    <TableCell>{item.ir}</TableCell>
-                                                    <TableCell>{item.scan_period}</TableCell>
-                                                    <TableCell>{item.mod_type}</TableCell>
                                                 </TableRow>)
                                             )
                                         }
@@ -174,46 +176,6 @@ export default function ViprPitComponent() {
                                 </IntContainer>
                                 <IntPagination/>
                             </Paper>
-                        </Grid>
-                        <Grid container xs={12} direction="row">
-                            <Grid item xs={6}>
-                                <Paper className={classes.paper}>
-                                    <PriContainer>
-                                        <PriHead />
-                                        <TableBody>
-                                            {
-                                                prisAfterPagingAndSorting(records).map(item =>
-                                                    (<TableRow key={item.elnot}>
-                                                        <TableCell>{item.pri1}</TableCell>
-                                                        <TableCell>{item.pri2}</TableCell>
-                                                        <TableCell>{item.pri3}</TableCell>
-                                                    </TableRow>)
-                                                )
-                                            }
-                                        </TableBody>
-                                    </PriContainer>
-                                    <PriPagination />
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Paper className={classes.paper}>
-                                    <RfContainer>
-                                        <RfHead />
-                                        <TableBody>
-                                            {
-                                                rfsAfterPagingAndSorting(records).map(item =>
-                                                    (<TableRow key={item.elnot}>
-                                                        <TableCell>{item.rf1}</TableCell>
-                                                        <TableCell>{item.rf2}</TableCell>
-                                                        <TableCell>{item.rf3}</TableCell>
-                                                    </TableRow>)
-                                                )
-                                            }
-                                        </TableBody>
-                                    </RfContainer>
-                                    <RfPagination/>
-                                </Paper>
-                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>    
