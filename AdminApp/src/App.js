@@ -9,6 +9,7 @@ import NotFound from './components/pages/NotFound';
 import Login from './components/pages/home/login';
 import Users from './components/pages/users/UsersComponent';
 import Vipr from './components/pages/viprpit/Vipr-Pit';
+import Test from './components/pages/viprpit/MuiVirtualizedTable';
 
 //Components
 import TeamUsersComponent from './components/pages/users/TeamUsersComponent';
@@ -23,6 +24,7 @@ export default class App extends Component {
           <Route exact path="/TeamUsers" component={TeamUsersComponent} />
           <Route exact path="/Users" component={Users} />
           <Route exact path="/vipr" component={Vipr} />
+          <Route exact path="/test" component={Test} />
           <Route exact path="/google" render={() => (window.location = "https://google.com")} />
           <Route exact path="/github" render={() => (window.location = "https://github.com/")} />
           <Route exact path="/404" component={NotFound} />
