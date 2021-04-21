@@ -7,7 +7,7 @@ import button1 from '../../../photos/button1.png';
 const images = [
   {
     url: button1,
-    title: 'test',
+    title: 'Vipr-Pit',
     width: '100%',
   },
 ];
@@ -92,6 +92,7 @@ export default function ButtonBases() {
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase
+          href="/vipr"
           focusRipple
           key={image.title}
           className={classes.image}

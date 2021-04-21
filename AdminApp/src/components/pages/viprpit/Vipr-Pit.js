@@ -30,8 +30,15 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+    tableRow: {
+        "&.Mui-selected, &.Mui-selected:hover": {
+                backgroundColor: "red",
+                "& > .MuiTableCell-root": {
+                color: "black"
+            }
+        }
+    },
 }))
-
 
 const elnotHead = [
     { id: 'elnot', label: 'Elnot', width: 50 },
@@ -62,7 +69,8 @@ export default function ViprPitComponent() {
     const [recordForEdit, setRecordForEdit] = useState(null)
     const [openPopup, setOpenPopup] = useState(false)
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
-
+    const [selectedID, setSelectedID] = useState(null);
+    
     useEffect(() => {
         ViprTablesViewService.getViprTablesView()
         .then(response => {
@@ -100,6 +108,15 @@ export default function ViprPitComponent() {
         setRecordForEdit(item)
         setOpenPopup(true)
     }
+
+    const conditionalRowStyles = [
+        {
+          when: item => item.elnot === "3",
+          style: {
+            backgroundColor: "red"
+          }
+        }
+    ]
     
     return (
         <>
@@ -109,7 +126,7 @@ export default function ViprPitComponent() {
                         <Paper className={classes.paper}>
                             <Toolbar>
                             <Controls.Input
-                                label="Search Users"
+                                label="Search Elnot"
                                 className={classes.searchInput}
                                 InputProps={{
                                     startAdornment: (<InputAdornment position="start">
@@ -130,7 +147,15 @@ export default function ViprPitComponent() {
                                 <TableBody>
                                     {
                                         recordsAfterPagingAndSorting(viprView).map(item =>
-                                            (<TableRow key={item.elnot}>
+                                            (<TableRow key={item.elnot}
+                                                hover
+                                                onClick={() => {
+                                                  setSelectedID(item.elnot);
+                                                }}
+                                                selected={selectedID === item.elnot}
+                                                classes={{ selected: classes.selected }}
+                                                className={classes.tableRow}
+                                                conditionalRowStyles={item}>
                                                 <TableCell>{item.elnot}</TableCell>
                                                 <TableCell></TableCell>
                                                 <TableCell>
@@ -156,7 +181,9 @@ export default function ViprPitComponent() {
                                     <TableBody>
                                         {
                                             intsAfterPagingAndSorting(viprView).map(item =>
-                                                (<TableRow key={item.elnot}>
+                                                (<TableRow 
+                                                    key={item.elnot}
+                                                >
                                                     <TableCell>{item.elnot}</TableCell>
                                                     <TableCell>{item.op_mode_id}</TableCell>
                                                     <TableCell>{item.rf_mode}</TableCell>
