@@ -141,8 +141,6 @@ MuiVirtualizedTable.propTypes = {
 
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
-// ---
-
 const sample = [
   ['Frozen yoghurt', 159, 6.0, 24, 4.0],
   ['Ice cream sandwich', 237, 9.0, 37, 4.3],
@@ -164,42 +162,44 @@ for (let i = 0; i < 200; i += 1) {
 
 export default function ReactVirtualizedTable() {
   return (
-    <Paper style={{ height: 400, width: '100%' }}>
-      <VirtualizedTable
-        rowCount={rows.length}
-        rowGetter={({ index }) => rows[index]}
-        columns={[
-          {
-            width: 200,
-            label: 'Dessert',
-            dataKey: 'dessert',
-          },
-          {
-            width: 120,
-            label: 'Calories\u00A0(g)',
-            dataKey: 'calories',
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: 'Fat\u00A0(g)',
-            dataKey: 'fat',
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: 'Carbs\u00A0(g)',
-            dataKey: 'carbs',
-            numeric: true,
-          },
-          {
-            width: 120,
-            label: 'Protein\u00A0(g)',
-            dataKey: 'protein',
-            numeric: true,
-          },
-        ]}
-      />
-    </Paper>
+    <>
+      <Paper style={{ height: 400, width: '100%' }}>
+        <VirtualizedTable
+          rowCount={rows.length}
+          rowGetter={({ index }) => rows[index]}
+          columns={[
+            {
+              width: 200,
+              label: 'Dessert',
+              dataKey: 'dessert',
+            },
+            {
+              width: 120,
+              label: 'Calories\u00A0(g)',
+              dataKey: 'calories',
+              numeric: true,
+            },
+            {
+              width: 120,
+              label: 'Fat\u00A0(g)',
+              dataKey: 'fat',
+              numeric: true,
+            },
+            {
+              width: 120,
+              label: 'Carbs\u00A0(g)',
+              dataKey: 'carbs',
+              numeric: true,
+            },
+            {
+              width: 120,
+              label: 'Protein\u00A0(g)',
+              dataKey: 'protein',
+              numeric: true,
+            },
+          ]}
+        />
+      </Paper>
+    </>
   );
 }

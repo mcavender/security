@@ -8,6 +8,7 @@ public class ViprTablesView {
 
     @Id
     private int op_mode_id;
+    private int state_id;
     private int pri_seq;
     private String elnot;
     private int rf_mode;
@@ -31,12 +32,13 @@ public class ViprTablesView {
 
     }
 
-    public ViprTablesView(int op_mode_id, int pri_seq, String elnot, int rf_mode, String mode_type,
+    public ViprTablesView(int op_mode_id, int state_id, int pri_seq, String elnot, int rf_mode, String mode_type,
             int pd_mode, int sp_mode, int ir_mode, String scan_type, int clstr_id, String parm,
             int parm_min, int parm_max, int clstr_state_id, int x_min, int x_max, int seq_id,
             int element_id, int position) {
         super();
         this.op_mode_id = op_mode_id;
+        this.state_id = state_id;
         this.pri_seq = pri_seq;
         this.elnot = elnot;
         this.rf_mode = rf_mode;
@@ -63,6 +65,14 @@ public class ViprTablesView {
 
     public void setOp_mode_id(int op_mode_id) {
         this.op_mode_id = op_mode_id;
+    }
+
+    public int getState_id() {
+        return state_id;
+    }
+
+    public void setState_id(int state_id) {
+        this.state_id = state_id;
     }
 
     public int getPri_seq() {

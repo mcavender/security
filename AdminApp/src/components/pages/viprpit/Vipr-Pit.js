@@ -157,7 +157,7 @@ export default function ViprPitComponent() {
                                                 className={classes.tableRow}
                                                 conditionalRowStyles={item}>
                                                 <TableCell>{item.elnot}</TableCell>
-                                                <TableCell></TableCell>
+                                                <TableCell>{item.state_id}</TableCell>
                                                 <TableCell>
                                                     <Controls.ActionButton
                                                         color="primary"
