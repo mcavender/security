@@ -37,8 +37,8 @@ export default function ViprPit() {
 
   const classes = useStyles();
   const [elnotClm, setElnotClm] = useState([]);
-  const [viprViewClm, setViprViewClm] = useState([]);
-  const [vipr, setvipr] = useState({ data: [] });
+  const [viprClm, setViprClm] = useState([]);
+  const [viprData, setViprData] = useState({ data: [] });
 
   useEffect(() => {
     setElnotClm([      
@@ -46,7 +46,7 @@ export default function ViprPit() {
       { field: 'elnot', title: 'Elnot', width: 50 },
     ])
 
-    setViprViewClm([
+    setViprClm([
       { field: 'elnot', title: 'Elnot', width: 50 },
       { field: 'op_mode_id', title: 'Mode', width: 50 },
       { field: 'rf_mode', title: 'RF Min', width: 50 },
@@ -63,7 +63,7 @@ export default function ViprPit() {
 
     ViprTablesViewService.getViprTablesView()
     .then(response => {
-      setvipr({data: response.data });
+      setViprData({data: response.data });
     })
   }, []);
   
@@ -75,15 +75,15 @@ export default function ViprPit() {
             <MaterialTable
               title="Vipr-Pit"
               columns={elnotClm}
-              data={vipr.data}
+              data={viprData.data}
               editable={{
                 onRowUpdate: (newData, oldData) =>
                   new Promise(resolve => {
                     setTimeout(() => {
                       resolve();
-                      const data = [...vipr.data];
+                      const data = [...viprData.data];
                       data[data.indexOf(oldData)] = newData;
-                      setvipr({ ...vipr, data });
+                      setViprData({ ...viprData, data });
                     }, 600);
                   }),
               }}
@@ -95,8 +95,8 @@ export default function ViprPit() {
             <Paper className={classes.paper}>      
               <MaterialTable
                 title=""
-                columns={viprViewClm}
-                data={vipr.data}
+                columns={viprClm}
+                data={viprData.data}
               />
             </Paper>
           </Grid>
