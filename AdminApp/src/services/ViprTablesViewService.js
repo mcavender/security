@@ -8,6 +8,10 @@ class ViprTablesViewService {
     getViprTablesView() {
         return axios.get(VIPR_TABLES_VIEW_URL);
     }
+
+    updateViprTablesView() {
+        return axios.post(VIPR_TABLES_VIEW_URL);
+    }
 }
 
 export default new ViprTablesViewService();
