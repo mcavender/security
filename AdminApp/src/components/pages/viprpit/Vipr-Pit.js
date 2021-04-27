@@ -16,6 +16,7 @@ import Clear from '@material-ui/icons/Clear';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import ViprTablesViewService from '../../../services/ViprTablesViewService';
+import TopMenu from '../sidebar/TopMenu';
 
 
 const useStyles = makeStyles(theme => ({
@@ -118,7 +119,9 @@ export default function ViprPit() {
   }
   
   return (
-    <Grid container spacing={3} direction="column">
+    <>
+    <TopMenu />
+    <Grid container spacing={3} direction="column"> 
       <Grid container xs={12} spacing={1}>
         <Grid item xs={4}>
           <Paper className={classes.paper}>
@@ -186,5 +189,6 @@ export default function ViprPit() {
         </Grid>
       </Grid>    
     </Grid>      
+    </>
   );
 }

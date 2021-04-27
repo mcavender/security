@@ -2,8 +2,8 @@ import React from 'react';
 import UsersService from '../../../services/UsersService';
 
 import { Container, Grid, Button } from '@material-ui/core';
-import Sidebar from '../../sidebar/SideBar';
-import HomeButton from './HomeButton';
+import Sidebar from '../sidebar/SideBar';
+import ViprButton from './ViprPitButton';
 
 class Home extends React.Component {
 
@@ -32,38 +32,40 @@ class Home extends React.Component {
         }
 
         return (
-            <Container maxWidth="false">
-            <Sidebar/>
-                <div className="home-page">
-                    <Grid container spacing={5} justify="center">
-                        <Grid item xs={10} sm={3}>
-                            <HomeButton/>
+            <>
+                <Sidebar/>
+                <Container maxWidth="false">
+                    <div className="home-page">
+                        <Grid container spacing={5} justify="center">
+                            <Grid item xs={10} sm={3}>
+                                <ViprButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
+                            <Grid item xs={10} sm={3}>
+                                <AppButton/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                        <Grid item xs={10} sm={3}>
-                            <AppButton/>
-                        </Grid>
-                    </Grid>
-                </div>
+                    </div>
 
-            </Container>
+                </Container>
+            </>
         )        
     }
 }
