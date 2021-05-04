@@ -2,7 +2,7 @@ import React from 'react';
 import UsersService from '../../../services/UsersService';
 
 import { Container, Grid, Button } from '@material-ui/core';
-import Sidebar from '../sidebar/SideBar';
+import Sidebar from '../../sidebar/SideBar';
 import ViprButton from './ViprPitButton';
 
 class Home extends React.Component {
@@ -63,10 +63,9 @@ class Home extends React.Component {
                             </Grid>
                         </Grid>
                     </div>
-
                 </Container>
             </>
-        )        
+        )
     }
 }
 

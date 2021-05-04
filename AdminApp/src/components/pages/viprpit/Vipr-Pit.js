@@ -18,7 +18,7 @@ import Clear from '@material-ui/icons/Clear';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import ViprTablesViewService from '../../../services/ViprTablesViewService';
-import TopMenu from '../sidebar/TopMenu';
+import TopMenu from './TopMenu';
 
 const api = axios.create({
   baseURL: `http://localhost:3000/`
@@ -211,7 +211,7 @@ export default function ViprPit() {
           </Grid>
         </Grid>
       </Grid>    
-    </Grid>      
-    </>
+    </Grid> 
+    </>     
   );
 }
