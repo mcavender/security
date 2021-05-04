@@ -38,5 +38,12 @@ export const SidebarData = [
   {
     title: 'Support',
     icon: <IoIcons.IoMdHelpCircle />
-  }
+  },
+  {
+    title: 'Logout',
+    path: 'logout',
+    icon: <IoIcons.IoIosLogOut />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
 ];

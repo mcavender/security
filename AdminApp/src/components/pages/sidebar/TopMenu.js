@@ -45,7 +45,7 @@ export default function TopMenu() {
             <Typography variant="h6" className={classes.title}>
               Security App
             </Typography>
-            <Button className={classes.menuButton} color="inherit" href="/">Logout</Button>
+            <Button className={classes.menuButton} color="inherit" href="/logout">Logout</Button>
           </Toolbar>
         </AppBar>
       </div>

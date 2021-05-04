@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import MaterialTable from 'material-table';
 import { Grid, Paper, makeStyles } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import axios from 'axios'
 
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
@@ -18,6 +20,9 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ViprTablesViewService from '../../../services/ViprTablesViewService';
 import TopMenu from '../sidebar/TopMenu';
 
+const api = axios.create({
+  baseURL: `http://localhost:3000/`
+})
 
 const useStyles = makeStyles(theme => ({
   elnotTbl: {
@@ -50,12 +55,14 @@ export default function ViprPit() {
   const [elnotClm, setElnotClm] = useState([]);
   const [viprClm, setViprClm] = useState([]);
   const [viprData, setViprData] = useState({ data: [] });
+  const [iserror, setIserror] = useState(false)
+  const [errorMessages, setErrorMessages] = useState([])
   const [dataSelected, setDataSelected] = useState([]);
 
   useEffect(() => {
     setElnotClm([      
       {
-        field: 'elnot', title: 'Elnot', width: 50
+        field: 'elnot', title: 'Elnot', width: 50, editable: 'never',
       },
       {
         field: 'state_id', title: 'Status', width: 50,
@@ -72,7 +79,7 @@ export default function ViprPit() {
 
     setViprClm([
       {
-        field: 'elnot', title: 'Elnot', width: 50,
+        field: 'elnot', title: 'Elnot', width: 50, editable: 'never',
         render: viprData => {
             return(
               viprData.elnot === "3" ? <p style={{ backgroundColor: "red", fontWeight: "bold",}}>{viprData.elnot}</p> :
@@ -80,17 +87,17 @@ export default function ViprPit() {
                 <p>{viprData.elnot}</p>)
         },
       },
-      { field: 'op_mode_id', title: 'Mode', width: 50 },
-      { field: 'rf_mode', title: 'RF Min', width: 50 },
-      { field: 'rf_mode', title: 'RF Max', width: 50 },
-      { field: 'mode_type', title: 'Mode Type', width: 50 },
-      { field: 'pri_seq', title: 'Pri Min', width: 50 },
-      { field: 'pri_seq', title: 'Pri Max', width: 50 },
-      { field: 'pd_mode', title: 'PD Min', width: 50 },
-      { field: 'pd_mode', title: 'PD Max', width: 50 },
-      { field: 'sp_mode', title: 'SP Min', width: 50 },
-      { field: 'sp_mode', title: 'SP Max', width: 50 },
-      { field: 'scan_type', title: 'Scan Type', width: 50 },
+      { field: 'op_mode_id', title: 'Mode', width: 50, editable: 'never', },
+      { field: 'rf_mode', title: 'RF Min', width: 50, editable: 'never', },
+      { field: 'rf_mode', title: 'RF Max', width: 50, editable: 'never', },
+      { field: 'mode_type', title: 'Mode Type', width: 50, editable: 'never', },
+      { field: 'pri_seq', title: 'Pri Min', width: 50, editable: 'never', },
+      { field: 'pri_seq', title: 'Pri Max', width: 50, editable: 'never', },
+      { field: 'pd_mode', title: 'PD Min', width: 50, editable: 'never', },
+      { field: 'pd_mode', title: 'PD Max', width: 50, editable: 'never', },
+      { field: 'sp_mode', title: 'SP Min', width: 50, editable: 'never', },
+      { field: 'sp_mode', title: 'SP Max', width: 50, editable: 'never', },
+      { field: 'scan_type', title: 'Scan Type', width: 50, editable: 'never', },
     ])
 
     ViprTablesViewService.getViprTablesView()
@@ -100,30 +107,52 @@ export default function ViprPit() {
     })
   }, []);
   
-  const updateViprTablesView = async (e) => {
-    e.preventDefault();
-    try {
-      const body = { dataSelected };
-      const response = await fetch(`http://localhost:5000/vipr_tables_view/${viprData.data.op_mode_id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
+  const handleRowUpdate = (newData, oldData, resolve) => {
 
-      window.location = "/";
-    } catch (err) {
-      console.error(err.message)
+    let errorList = []
+
+    if (viprData.state_id === "") {
+      errorList.push("Please enter status")
     }
-  
+
+    if(errorList.length < 1){
+      api.put("/vipr_tables_view/"+newData.op_mode_id, newData)
+        .then(res => {
+          const dataUpdate = [...viprData];
+          const index = oldData.op_mode_id;
+          dataUpdate[index] = newData;
+          setViprData([...dataUpdate]);
+          resolve()
+          setIserror(false)
+          setErrorMessages([])
+        })
+        .catch(error => {
+          setErrorMessages(["Update failed! Server error"])
+          setIserror(true)
+          resolve()
+      })
+    }else{
+      setErrorMessages(errorList)
+      setIserror(true)
+      resolve()
+    }
   }
   
   return (
     <>
     <TopMenu />
     <Grid container spacing={3} direction="column"> 
-      <Grid container xs={12} spacing={1}>
+      <Grid container spacing={1}>
         <Grid item xs={4}>
+          <div>
+            {iserror && 
+              <Alert severity="error">
+                  {errorMessages.map((msg, i) => {
+                      return <div key={i}>{msg}</div>
+                  })}
+              </Alert>
+            }       
+          </div>
           <Paper className={classes.paper}>
             <MaterialTable
               icons={{
@@ -141,21 +170,15 @@ export default function ViprPit() {
                 SortArrow: ArrowDownwardIcon,
                 ThirdStateCheck: Remove,
                 Edit: CreateIcon,
-              }}
+                }}
               title="Vipr-Pit"
               columns={elnotClm}
               data={viprData.data}
               editable={{
                 onRowUpdate: (newData, oldData) =>
-                  new Promise(resolve => {
-                    setTimeout(() => {
-                      resolve();
-                      const data = [...viprData.data];
-                      data[data.indexOf(oldData)] = newData;
-                      setViprData({ ...viprData, data });
-                      console.log(data);
-                    }, 600);
-                  }),
+                new Promise((resolve) => {
+                    handleRowUpdate(newData, oldData, resolve);                     
+                }),
               }}
             />
           </Paper>        

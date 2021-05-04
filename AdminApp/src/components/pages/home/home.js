@@ -34,7 +34,7 @@ class Home extends React.Component {
         return (
             <>
                 <Sidebar/>
-                <Container maxWidth="false">
+                <Container maxWidth="xl">
                     <div className="home-page">
                         <Grid container spacing={5} justify="center">
                             <Grid item xs={10} sm={3}>

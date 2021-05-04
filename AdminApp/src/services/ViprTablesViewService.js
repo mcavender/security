@@ -10,7 +10,7 @@ class ViprTablesViewService {
     }
 
     updateViprTablesView() {
-        return axios.post(VIPR_TABLES_VIEW_URL);
+        return axios.put(VIPR_TABLES_VIEW_URL);
     }
 }
 
