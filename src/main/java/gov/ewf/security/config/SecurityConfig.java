@@ -36,21 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   //login page is called login, and the page the user will be directed to is
   // index.  These files are actually in the resources/template directory.
   @Override
-  protected void configure(final HttpSecurity http) throws Exception {
+  protected void configure(HttpSecurity http) throws Exception {
       http
-        .authorizeRequests()
-        .anyRequest().authenticated()
-        .and()
-        .cors()
-        .and()
-        .formLogin()
-        .loginPage("/login")
-        .defaultSuccessUrl("/home",true)
-        .and()
-        .httpBasic()
-        .and()
-        .logout()
-        .logoutUrl("/logout");
+          .authorizeRequests()
+              .anyRequest().authenticated()
+              .and().cors().and()
+          .httpBasic();
   }
 
   // Use the BCryptPassword encodder on passwords
