@@ -13,6 +13,7 @@ import Logout from './components/pages/home/logout';
 
 //Components
 import TeamUsersComponent from './components/pages/users/TeamUsersComponent';
+import ModeQueue from './components/pages/viprpit/ModeQueue';
 
 export default class App extends Component {
   render() {
@@ -23,6 +24,7 @@ export default class App extends Component {
           <Route exact path="/home" component={Home}/>
           <Route exact path="/TeamUsers" component={TeamUsersComponent} />
           <Route exact path="/Users" component={Users} />
+          <Route exact path="/modequeue" component={ModeQueue} />
           <Route exact path="/vipr" component={Vipr} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/404" component={NotFound} />
