@@ -1,31 +1,43 @@
 import React from 'react';
 
+import AuthenticationService from '../../../services/AuthenticationService';
 import UsersService from '../../../services/UsersService';
 import Popup from './TermsPopup';
 
 export default class Login extends React.Component {
 
-  state = {
-    disabled: true
+  constructor(props) {
+    super(props)
+
+    this.state = {
+        hasLoginFailed: false,
+        showSuccessMessage: false,
+        disabled: true
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  
+
+  handleChange(event) {
+      this.setState(
+          {
+            [event.target.name]
+              : event.target.value
+          }
+      )
+  }
     
   handleSubmit = e => {
     e.preventDefault();
-  
-    const data = {
-      username: this.username,
-      password: this.password
-    }
-
-    UsersService.getUsers('users/', data.username)
-      .then(res => {
-        localStorage.setItem('token', res.data.token);
-        this.props.history.push('/home');
-      })
-      .catch(err => {
-        console.log(err)
-      })  
+    
+    AuthenticationService.executeJwtAuthenticationService(this.state.username, this.state.password)
+    .then(() => {
+        this.props.history.push(`/courses`)
+    }).catch(() => {
+        this.setState({ showSuccessMessage: false })
+        this.setState({ hasLoginFailed: true })
+    })
   };
 
   handleCheck = () => {
