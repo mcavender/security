@@ -31,8 +31,9 @@ export default class Login extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     
-    AuthenticationService.executeJwtAuthenticationService(this.state.username, this.state.password)
-    .then(() => {
+    AuthenticationService
+      .executeJwtAuthenticationService(this.state.username, this.state.password)
+      .then(() => {
         this.props.history.push(`/courses`)
     }).catch(() => {
         this.setState({ showSuccessMessage: false })

@@ -8,7 +8,7 @@ export default class AuthenticationService {
 
     executeJwtAuthenticationService(username, password) {
         console.log(username);
-        return axios.post(`${API_URL}/authenticate`, {
+        return axios.post(`/authenticate`, {
             username,
             password
         })
